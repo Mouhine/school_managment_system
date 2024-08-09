@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id          String      @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String
+  age         Int
+  phoneNumber String
+  joinDate    DateTime
+  Class       Class       @relation(fields: [Classid], references: [id])
+  Classid     String
+  attendence  Atendence[]
+  courses     Course[]
+  payments    Payment[]
+}
+
+model Class {
+  id       String    @id @default(cuid())
+  title    String
+  students Student[]
+  courses  Course[]
+  teacher  Teacher[]
+}
+
+model Teacher {
+  id          String  @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String
+  phoneNumber String
+  classes     Class[]
+}
+
+model Payment {
+  id        String   @id @default(cuid())
+  amount    Int
+  date      DateTime @default(now())
+  student   Student  @relation(fields: [studentid], references: [id])
+  studentid String
+}
+
+model Event {
+  id    String   @id @default(cuid())
+  date  DateTime
+  title String
+}
+
+model Atendence {
+  id        String   @id @default(cuid())
+  student   Student  @relation(fields: [studentid], references: [id])
+  studentid String
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id          String   @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String
+  phoneNUmber String
+  role        Role     @default(BASIC)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Course {
+  id       String    @id @default(cuid())
+  title    String
+  students Student[]
+  classes  Class[]
+}
+
+enum Role {
+  ADMIN
+  BASIC
+}

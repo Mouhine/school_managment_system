@@ -1,0 +1,2 @@
+const login = () => {};
+const register = () => {};

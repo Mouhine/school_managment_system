@@ -1,0 +1,2 @@
+const promot = () => {};
+const getUserDetails = () => {};
