@@ -2,7 +2,7 @@ import React from "react";
 import Title from "./Title";
 import SearchBar from "./SearchBar";
 import Notifications from "./Notifications";
-import Avatar from "./Avatar";
+import UserAvatar from "./Avatar";
 
 const HeadNav = () => {
   return (
@@ -10,7 +10,7 @@ const HeadNav = () => {
       <Title />
       <SearchBar />
       <Notifications />
-      <Avatar />
+      <UserAvatar />
     </div>
   );
 };
